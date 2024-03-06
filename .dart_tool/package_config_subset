@@ -46,6 +46,10 @@ flutter_lints
 3.0
 file:///C:/Users/jmcie/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_lints-3.0.1/
 file:///C:/Users/jmcie/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_lints-3.0.1/lib/
+flutter_riverpod
+2.17
+file:///C:/Users/jmcie/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_riverpod-2.4.10/
+file:///C:/Users/jmcie/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_riverpod-2.4.10/lib/
 google_fonts
 2.14
 file:///C:/Users/jmcie/AppData/Local/Pub/Cache/hosted/pub.dev/google_fonts-6.2.0/
@@ -122,6 +126,10 @@ plugin_platform_interface
 3.0
 file:///C:/Users/jmcie/AppData/Local/Pub/Cache/hosted/pub.dev/plugin_platform_interface-2.1.8/
 file:///C:/Users/jmcie/AppData/Local/Pub/Cache/hosted/pub.dev/plugin_platform_interface-2.1.8/lib/
+riverpod
+2.17
+file:///C:/Users/jmcie/AppData/Local/Pub/Cache/hosted/pub.dev/riverpod-2.5.0/
+file:///C:/Users/jmcie/AppData/Local/Pub/Cache/hosted/pub.dev/riverpod-2.5.0/lib/
 source_span
 2.18
 file:///C:/Users/jmcie/AppData/Local/Pub/Cache/hosted/pub.dev/source_span-1.10.0/
@@ -134,6 +142,10 @@ stack_trace
 2.18
 file:///C:/Users/jmcie/AppData/Local/Pub/Cache/hosted/pub.dev/stack_trace-1.11.1/
 file:///C:/Users/jmcie/AppData/Local/Pub/Cache/hosted/pub.dev/stack_trace-1.11.1/lib/
+state_notifier
+2.12
+file:///C:/Users/jmcie/AppData/Local/Pub/Cache/hosted/pub.dev/state_notifier-1.0.0/
+file:///C:/Users/jmcie/AppData/Local/Pub/Cache/hosted/pub.dev/state_notifier-1.0.0/lib/
 stream_channel
 2.19
 file:///C:/Users/jmcie/AppData/Local/Pub/Cache/hosted/pub.dev/stream_channel-2.1.2/
