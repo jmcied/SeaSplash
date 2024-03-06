@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sea_splash/providers/user_places.dart';
+import 'package:sea_splash/widgets/image_input.dart';
 
 class AddPlaceScreen extends ConsumerStatefulWidget {
   const AddPlaceScreen({super.key});
@@ -42,14 +43,15 @@ class _AddPlaceScreenState extends ConsumerState<AddPlaceScreen> {
         child: Column(
           children: [
             TextField(
-                decoration: const InputDecoration(labelText: 'Title'),
-                controller: _titleController,
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.onBackground,
-                )),
-            const SizedBox(
-              height: 16,
+              decoration: const InputDecoration(labelText: 'Title'),
+              controller: _titleController,
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onBackground,
+              ),
             ),
+            const SizedBox(height: 10),
+            ImageInput(),
+            const SizedBox(height: 16),
             ElevatedButton.icon(
               onPressed: _savePlace,
               icon: const Icon(Icons.add),
