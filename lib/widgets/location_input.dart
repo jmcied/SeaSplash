@@ -20,7 +20,7 @@ class LocationInput extends StatefulWidget {
 class _LocationInputState extends State<LocationInput> {
   PlaceLocation? _pickedLocation;
   var _isGettingLocation = false;
-  final apiKey = dotenv.env['YOUR_API_KEY'];
+  final apiKey = dotenv.env['API_KEY'];
 
   String get locationImage {
     if (_pickedLocation == null) {
