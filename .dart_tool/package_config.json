@@ -104,6 +104,12 @@
       "languageVersion": "3.2"
     },
     {
+      "name": "flutter_config",
+      "rootUri": "file:///C:/Users/jmcie/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_config-2.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "flutter_dotenv",
       "rootUri": "file:///C:/Users/jmcie/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_dotenv-5.1.0",
       "packageUri": "lib/",
@@ -500,7 +506,7 @@
       "languageVersion": "3.3"
     }
   ],
-  "generated": "2024-03-08T15:12:00.434667Z",
+  "generated": "2024-03-09T13:59:31.936471Z",
   "generator": "pub",
-  "generatorVersion": "3.3.0"
+  "generatorVersion": "3.3.1"
 }

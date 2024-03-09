@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:sea_splash/models/place.dart';
+
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_config/flutter_config.dart';
+
 import 'package:sea_splash/screens/map.dart';
+import 'package:sea_splash/models/place.dart';
 
 class PlaceDetailScreen extends StatelessWidget {
   PlaceDetailScreen({super.key, required this.place});
 
   final Place place;
 
-  final apiKey = dotenv.env['API_KEY'];
+  //final apiKey = dotenv.env['API_KEY'];
+  final gooleMapsApiKey = FlutterConfig.get('GOOGLE_MAPS_API_KEY');
 
   String get locationImage {
     final lat = place.location.latitude;
     final lng = place.location.longitude;
-    return 'https://maps.googleapis.com/maps/api/staticmap?center=$lat,$lng&zoom=16&size=600x300&maptype=roadmap&markers=color:red%7Clabel:A%7C$lat,$lng&key=$apiKey';
+    return 'https://maps.googleapis.com/maps/api/staticmap?center=$lat,$lng&zoom=16&size=600x300&maptype=roadmap&markers=color:red%7Clabel:A%7C$lat,$lng&key=$gooleMapsApiKey';
   }
 
   @override
