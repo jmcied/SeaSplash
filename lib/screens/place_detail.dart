@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_config/flutter_config.dart';
 
 import 'package:sea_splash/screens/map.dart';
@@ -10,8 +8,6 @@ class PlaceDetailScreen extends StatelessWidget {
   PlaceDetailScreen({super.key, required this.place});
 
   final Place place;
-
-  //final apiKey = dotenv.env['API_KEY'];
   final gooleMapsApiKey = FlutterConfig.get('GOOGLE_MAPS_API_KEY');
 
   String get locationImage {
@@ -52,7 +48,7 @@ class PlaceDetailScreen extends StatelessWidget {
                     );
                   },
                   child: CircleAvatar(
-                    radius: 70,
+                    radius: 120,
                     backgroundImage: NetworkImage(locationImage),
                   ),
                 ),
