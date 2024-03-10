@@ -47,20 +47,10 @@ class _ImageInputState extends State<ImageInput> {
 
   @override
   Widget build(BuildContext context) {
-    Widget content = Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        TextButton.icon(
-          icon: const Icon(Icons.camera_alt),
-          label: const Text('Take Picture'),
-          onPressed: _takePicture,
-        ),
-        TextButton.icon(
-          icon: const Icon(Icons.upload_file),
-          label: const Text('Upload Picture'),
-          onPressed: _uploadPicture,
-        ),
-      ],
+    Widget content = TextButton.icon(
+      icon: const Icon(Icons.camera_alt),
+      label: const Text('Take Picture'),
+      onPressed: _takePicture,
     );
 
     if (_selectedImage != null) {
@@ -75,17 +65,26 @@ class _ImageInputState extends State<ImageInput> {
       );
     }
 
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(
-          width: 1,
-          color: Theme.of(context).colorScheme.primary.withOpacity(0.2),
+    return Column(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            border: Border.all(
+              width: 1,
+              color: Theme.of(context).colorScheme.primary.withOpacity(0.2),
+            ),
+          ),
+          height: 250,
+          width: double.infinity,
+          alignment: Alignment.center,
+          child: content,
         ),
-      ),
-      height: 250,
-      width: double.infinity,
-      alignment: Alignment.center,
-      child: content,
+        TextButton.icon(
+          icon: const Icon(Icons.upload_file),
+          label: const Text('Upload Picture'),
+          onPressed: _uploadPicture,
+        ),
+      ],
     );
   }
 }
