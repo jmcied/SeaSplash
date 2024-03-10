@@ -25,15 +25,20 @@ class _ImageInputState extends State<ImageInput> {
       return;
     }
 
-    //   void _uploadPicture() async {
-    // final imagePicker = ImagePicker();
-    // final pickedImage =
-    //     await imagePicker.pickImage(source: ImageSource.gallery, maxWidth: 600);
+    setState(() {
+      _selectedImage = File(pickedImage.path);
+    });
+    widget.onPickImage(_selectedImage!);
+  }
 
-    // if (pickedImage == null) {
-    //   return;
-    // }
+  void _uploadPicture() async {
+    final imagePicker = ImagePicker();
+    final pickedImage =
+        await imagePicker.pickImage(source: ImageSource.gallery, maxWidth: 600);
 
+    if (pickedImage == null) {
+      return;
+    }
     setState(() {
       _selectedImage = File(pickedImage.path);
     });
@@ -42,10 +47,20 @@ class _ImageInputState extends State<ImageInput> {
 
   @override
   Widget build(BuildContext context) {
-    Widget content = TextButton.icon(
-      icon: const Icon(Icons.camera_alt),
-      label: const Text('Take Picture'),
-      onPressed: _takePicture,
+    Widget content = Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        TextButton.icon(
+          icon: const Icon(Icons.camera_alt),
+          label: const Text('Take Picture'),
+          onPressed: _takePicture,
+        ),
+        TextButton.icon(
+          icon: const Icon(Icons.upload_file),
+          label: const Text('Upload Picture'),
+          onPressed: _uploadPicture,
+        ),
+      ],
     );
 
     if (_selectedImage != null) {

@@ -29,7 +29,7 @@ class _PlacesScreenState extends ConsumerState<PlacesScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Your Swim Spots'),
+        title: const Text('Swim Spots'),
         actions: [
           IconButton(
             icon: const Icon(Icons.add),
