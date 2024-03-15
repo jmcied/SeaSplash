@@ -2,6 +2,7 @@ plugins {
     id "com.android.application"
     id "kotlin-android"
     id "dev.flutter.flutter-gradle-plugin"
+    //id("com.google.gms.google-services")
 }
 
 apply from: project(':flutter_config').projectDir.getPath() + "/dotenv.gradle"
@@ -47,7 +48,7 @@ android {
         applicationId "com.example.sea_splash"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdkVersion 20
+        minSdkVersion 21
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
@@ -66,4 +67,7 @@ flutter {
     source '../..'
 }
 
-dependencies {}
+dependencies {
+implementation(platform("com.google.firebase:firebase-bom:32.7.4"))
+implementation("com.google.firebase:firebase-analytics")
+}
