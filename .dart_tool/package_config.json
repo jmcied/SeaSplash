@@ -152,6 +152,24 @@
       "languageVersion": "3.2"
     },
     {
+      "name": "firebase_storage",
+      "rootUri": "file:///C:/Users/jmcie/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_storage-11.6.10",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
+      "name": "firebase_storage_platform_interface",
+      "rootUri": "file:///C:/Users/jmcie/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_storage_platform_interface-5.1.13",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
+      "name": "firebase_storage_web",
+      "rootUri": "file:///C:/Users/jmcie/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_storage_web-3.8.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
       "name": "fixnum",
       "rootUri": "file:///C:/Users/jmcie/AppData/Local/Pub/Cache/hosted/pub.dev/fixnum-1.1.0",
       "packageUri": "lib/",
@@ -584,7 +602,7 @@
       "languageVersion": "3.3"
     }
   ],
-  "generated": "2024-03-16T12:46:48.919165Z",
+  "generated": "2024-03-16T21:36:19.110797Z",
   "generator": "pub",
   "generatorVersion": "3.3.1"
 }

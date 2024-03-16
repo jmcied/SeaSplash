@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:sea_splash/main.dart';
+import 'package:sea_splash/widgets/user_image_picker.dart';
 
 final _firebase = FirebaseAuth.instance;
 
@@ -17,9 +19,9 @@ class _AuthScreenState extends State<AuthScreen> {
 
   var _isLogin = true;
   var _enteredEmail = '';
-  var _enteredPassword = '';
-  // var _confirmPassword = '';
+  var _enteredPassword = '';  
   var _obscurePassword = true;
+  // var _confirmPassword = '';
   // var _obscureConfirmPassword = true;
 
   final _passwordController = TextEditingController();
@@ -71,13 +73,21 @@ class _AuthScreenState extends State<AuthScreen> {
             children: [
               Container(
                 margin: const EdgeInsets.only(
-                  top: 30,
+                  top: 20,
                   bottom: 20,
                   left: 20,
                   right: 20,
                 ),
-                width: 250,
-                child: Image.asset('assets/images/water_splash.png'),
+                child: Text(
+                  'SeaSplash',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 36,
+                    color: Theme.of(context).colorScheme.background,
+                  ),
+                ),
+                //width: 250,
+                //child: Image.asset('/assets/images/sandy_beach.png'),   //images broken
               ),
               Card(
                 margin: const EdgeInsets.all(20),
@@ -91,6 +101,7 @@ class _AuthScreenState extends State<AuthScreen> {
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
+                            if (!_isLogin) UserImagePicker(),
                             TextFormField(
                               style: const TextStyle(color: Colors.white),
                               decoration: const InputDecoration(
