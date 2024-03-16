@@ -4,6 +4,7 @@ import 'package:flutter_config/flutter_config.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 import 'package:sea_splash/screens/places.dart';
 import 'package:sea_splash/screens/auth.dart';
@@ -33,7 +34,9 @@ final theme = ThemeData().copyWith(
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); // Required by FlutterConfig
   await FlutterConfig.loadEnvVariables();
-  //await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(
     const ProviderScope(
       child: MyApp(),
