@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+final _firebase = FirebaseAuth.instance;
 
 class AuthScreen extends StatefulWidget {
-  const AuthScreen({Key? key}) : super(key: key);
+  const AuthScreen({super.key});
 
   @override
   State<AuthScreen> createState() {
@@ -15,9 +18,9 @@ class _AuthScreenState extends State<AuthScreen> {
   var _isLogin = true;
   var _enteredEmail = '';
   var _enteredPassword = '';
-  var _confirmPassword = '';
+  // var _confirmPassword = '';
   var _obscurePassword = true;
-  var _obscureConfirmPassword = true;
+  // var _obscureConfirmPassword = true;
 
   final _passwordController = TextEditingController();
 
@@ -27,21 +30,33 @@ class _AuthScreenState extends State<AuthScreen> {
     super.dispose();
   }
 
-  void _submit() {
+  void _submit() async {
     final isValid = _form.currentState!.validate();
 
-    if (isValid) {
-      _form.currentState!.save();
-      print(_enteredEmail);
-      print(_enteredPassword);
-      // if (!_isLogin && _enteredPassword != _confirmPassword) {
-      //   ScaffoldMessenger.of(context).showSnackBar(
-      //     const SnackBar(
-      //       content: Text('Passwords do not match'),
-      //     ),
-      //   );
-      //   return;
-      // }
+    if (!isValid) {
+      return;
+    }
+
+    _form.currentState!.save();
+
+    try {
+      if (_isLogin) {
+        final userCredentials = await _firebase.signInWithEmailAndPassword(
+            email: _enteredEmail, password: _enteredPassword);
+        print(userCredentials);
+      } else {
+        final userCredentials = await _firebase.createUserWithEmailAndPassword(
+            email: _enteredEmail, password: _enteredPassword);
+        print(userCredentials);
+      }
+    } on FirebaseAuthException catch (error) {
+      if (error.code == 'email-already-in-use') {
+        //..
+      }
+      ScaffoldMessenger.of(context).clearSnackBars();
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(error.message ?? 'Authentication failed.'),
+      ));
     }
   }
 
@@ -125,7 +140,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                 _enteredPassword = passwordValue!;
                               },
                             ),
-                            // if (!_isLogin)
+                            // if (!_isLogin)           //COMFIRM PASSWORD CHECK NOT WORKING
                             //   TextFormField(
                             //     style: const TextStyle(color: Colors.white),
                             //     decoration: InputDecoration(

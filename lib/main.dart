@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_config/flutter_config.dart';
@@ -8,6 +9,7 @@ import 'firebase_options.dart';
 
 import 'package:sea_splash/screens/places.dart';
 import 'package:sea_splash/screens/auth.dart';
+import 'package:sea_splash/screens/splash.dart';
 
 final colorScheme = ColorScheme.fromSeed(
   brightness: Brightness.dark,
@@ -52,8 +54,22 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'SeaSplash',
       theme: theme,
-      home: const AuthScreen(),
-      //home: const PlacesScreen(),
+      home: StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: ((context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const SplashScreen();
+          }
+
+          if (snapshot.hasData) {
+            return const PlacesScreen();
+          }
+
+          return const AuthScreen();
+        }),
+        //home: const AuthScreen(),
+        //home: const PlacesScreen(),
+      ),
     );
   }
 }
