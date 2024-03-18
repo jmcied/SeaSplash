@@ -1,5 +1,9 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sea_splash/models/place.dart';
@@ -21,7 +25,7 @@ class _AddPlaceScreenState extends ConsumerState<AddPlaceScreen> {
   File? _selectedImage;
   PlaceLocation? _selectedLocation;
 
-  void _savePlace() {
+  void _savePlace() async {
     final enteredTitle = _titleController.text;
 
     if (enteredTitle.isEmpty ||
@@ -30,9 +34,30 @@ class _AddPlaceScreenState extends ConsumerState<AddPlaceScreen> {
       return;
     }
 
-    ref
-        .read(userPlacesProvider.notifier)
-        .addPlace(enteredTitle, _selectedImage!, _selectedLocation!);
+    final user = FirebaseAuth.instance.currentUser!;
+    final userData = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(user.uid)
+        .get();
+
+    final storageRef = FirebaseStorage.instance
+        .ref()
+        .child('swimSpot_images')
+        .child('${userData.id}.jpg');
+
+    await storageRef.putFile(_selectedImage!);
+    final imageUrl = await storageRef.getDownloadURL();
+
+    FirebaseFirestore.instance.collection('swimspots').add({
+      'title': enteredTitle,
+      'image': imageUrl,
+      'lat': _selectedLocation!.latitude,
+      'lng': _selectedLocation!.longitude,
+    });
+
+    // ref
+    //     .read(userPlacesProvider.notifier)
+    //     .addPlace(enteredTitle, _selectedImage!, _selectedLocation!);
 
     Navigator.of(context).pop();
   }
