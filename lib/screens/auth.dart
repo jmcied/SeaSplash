@@ -1,10 +1,15 @@
 import 'dart:io';
+import 'package:intl/intl.dart';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sea_splash/main.dart';
 import 'package:sea_splash/widgets/user_image_picker.dart';
+import 'package:sea_splash/models/user.dart';
 
+final formatter = DateFormat.yMd();
 final _firebase = FirebaseAuth.instance;
 
 class AuthScreen extends StatefulWidget {
@@ -18,18 +23,34 @@ class AuthScreen extends StatefulWidget {
 
 class _AuthScreenState extends State<AuthScreen> {
   final _form = GlobalKey<FormState>();
-
   var _isLogin = true;
   var _enteredEmail = '';
   var _enteredPassword = '';
+  var _enteredUsername = '';
   var _obscurePassword = true;
   File? _selectedImage;
   var _isAuthenticating = false;
+  final _passwordController = TextEditingController();
+  DateTime? _selectedDateOfBirth;
+  Category _selectedCategory = Category.beginner;
 
   // var _confirmPassword = '';
   // var _obscureConfirmPassword = true;
 
-  final _passwordController = TextEditingController();
+  void _datePicker() async {
+    final now = DateTime.now();
+    final initialDate = DateTime(now.year - 18, now.month, now.day);
+    final firstDate = DateTime(now.year - 100, now.month, now.day);
+    final pickedDate = await showDatePicker(
+      context: context,
+      initialDate: initialDate,
+      firstDate: firstDate,
+      lastDate: now,
+    );
+    setState(() {
+      _selectedDateOfBirth = pickedDate;
+    });
+  }
 
   @override
   void dispose() {
@@ -41,6 +62,7 @@ class _AuthScreenState extends State<AuthScreen> {
     final isValid = _form.currentState!.validate();
 
     if (!isValid || !_isLogin && _selectedImage == null) {
+      //ToDo Show error message
       return;
     }
 
@@ -64,7 +86,18 @@ class _AuthScreenState extends State<AuthScreen> {
 
         await storageRef.putFile(_selectedImage!);
         final imageUrl = await storageRef.getDownloadURL();
-        print(imageUrl);
+        print('_selectedCategory: $_selectedCategory');
+
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(userCredentials.user!.uid)
+            .set({
+          'username': _enteredUsername,
+          'email': _enteredEmail,
+          'image_url': imageUrl,
+          'date_of_birth': _selectedDateOfBirth.toString(),
+          'category': _selectedCategory.name,
+        });
       }
     } on FirebaseAuthException catch (error) {
       if (error.code == 'email-already-in-use') {
@@ -174,6 +207,109 @@ class _AuthScreenState extends State<AuthScreen> {
                                 _enteredPassword = passwordValue!;
                               },
                             ),
+                            if (!_isLogin)
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: TextFormField(
+                                      style:
+                                          const TextStyle(color: Colors.white),
+                                      decoration: const InputDecoration(
+                                          labelText: 'Username'),
+                                      enableSuggestions: false,
+                                      textCapitalization:
+                                          TextCapitalization.none,
+                                      validator: (value) {
+                                        if (value == null ||
+                                            value.isEmpty ||
+                                            value.trim().length < 4) {
+                                          return 'Please enter a valid username (min 4 characters).';
+                                        }
+                                        return null;
+                                      },
+                                      onSaved: (value) {
+                                        _enteredUsername = value!;
+                                      },
+                                    ),
+                                  ),
+                                  const SizedBox(width: 16),
+                                  Expanded(
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          style: TextStyle(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onBackground,
+                                          ),
+                                          _selectedDateOfBirth == null
+                                              ? 'Date of Birth'
+                                              : formatter.format(
+                                                  _selectedDateOfBirth!),
+                                        ),
+                                        IconButton(
+                                          onPressed: _datePicker,
+                                          icon: Icon(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onBackground,
+                                            Icons.calendar_month,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            const SizedBox(height: 10),
+                            if (!_isLogin)
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      'Swim Level',
+                                      style: TextStyle(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onBackground,
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: DropdownButton(
+                                        dropdownColor: Theme.of(context)
+                                            .colorScheme
+                                            .background,
+                                        value: _selectedCategory,
+                                        items: Category.values
+                                            .map(
+                                              (category) => DropdownMenuItem(
+                                                value: category,
+                                                child: Text(
+                                                  style: TextStyle(
+                                                      color: Theme.of(context)
+                                                          .colorScheme
+                                                          .primary),
+                                                  category.name.toUpperCase(),
+                                                ),
+                                              ),
+                                            )
+                                            .toList(),
+                                        onChanged: (value) {
+                                          setState(() {
+                                            if (value == null) {
+                                              return;
+                                            }
+                                            _selectedCategory = value;
+                                          });
+                                        }),
+                                  ),
+                                ],
+                              ),
+
                             // if (!_isLogin)           //COMFIRM PASSWORD CHECK NOT WORKING
                             //   TextFormField(
                             //     style: const TextStyle(color: Colors.white),
