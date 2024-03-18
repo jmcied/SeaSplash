@@ -10,6 +10,7 @@
 .svn/
 migrate_working_dir/
 *.env
+*lib/firebase_options.dart
 
 # IntelliJ related
 *.iml
@@ -42,3 +43,15 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Google Services (e.g. APIs or Firebase)
+google-services.json
+
+# Android related
+**/android/**/gradle-wrapper.jar
+**/android/.gradle
+**/android/captures/
+**/android/gradlew
+**/android/gradlew.bat
+**/android/local.properties
+**/android/**/GeneratedPluginRegistrant.java
