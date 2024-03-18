@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:sea_splash/providers/user_places.dart';
 import 'package:sea_splash/screens/add_place.dart';
+import 'package:sea_splash/screens/map_overview.dart';
 import 'package:sea_splash/widgets/places_list.dart';
 
 class PlacesScreen extends ConsumerStatefulWidget {
@@ -32,6 +33,17 @@ class _PlacesScreenState extends ConsumerState<PlacesScreen> {
       appBar: AppBar(
         title: const Text('Swim Spots'),
         actions: [
+          //if(_isAdmin)
+          IconButton(
+            icon: const Icon(Icons.map),
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (ctx) => MapOverviewScreen(places: userPlaces),
+                ),
+              );
+            },
+          ),
           IconButton(
             icon: const Icon(Icons.add),
             onPressed: () {
@@ -43,13 +55,14 @@ class _PlacesScreenState extends ConsumerState<PlacesScreen> {
             },
           ),
           IconButton(
-              onPressed: () {
-                FirebaseAuth.instance.signOut();
-              },
-              icon: Icon(
-                Icons.exit_to_app,
-                color: Theme.of(context).colorScheme.primary,
-              ))
+            onPressed: () {
+              FirebaseAuth.instance.signOut();
+            },
+            icon: Icon(
+              Icons.exit_to_app,
+              color: Theme.of(context).colorScheme.primary,
+            ),
+          )
         ],
       ),
       body: Padding(

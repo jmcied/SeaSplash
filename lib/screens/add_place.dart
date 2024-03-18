@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:uuid/uuid.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -6,10 +7,13 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:sea_splash/models/place.dart';
 import 'package:sea_splash/providers/user_places.dart';
 import 'package:sea_splash/widgets/image_input.dart';
 import 'package:sea_splash/widgets/location_input.dart';
+
+const uuid = Uuid();
 
 class AddPlaceScreen extends ConsumerStatefulWidget {
   const AddPlaceScreen({super.key});
@@ -51,8 +55,10 @@ class _AddPlaceScreenState extends ConsumerState<AddPlaceScreen> {
     FirebaseFirestore.instance.collection('swimspots').add({
       'title': enteredTitle,
       'image': imageUrl,
+      'id': uuid.v4(),
       'lat': _selectedLocation!.latitude,
       'lng': _selectedLocation!.longitude,
+      'address': _selectedLocation!.address,
     });
 
     // ref

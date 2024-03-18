@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter_config/flutter_config.dart';
 import 'package:intl/intl.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -33,7 +34,8 @@ class _AuthScreenState extends State<AuthScreen> {
   final _passwordController = TextEditingController();
   DateTime? _selectedDateOfBirth;
   Category _selectedCategory = Category.beginner;
-
+  
+  // var _isAdmin = false;
   // var _confirmPassword = '';
   // var _obscureConfirmPassword = true;
 
@@ -79,6 +81,8 @@ class _AuthScreenState extends State<AuthScreen> {
         final userCredentials = await _firebase.createUserWithEmailAndPassword(
             email: _enteredEmail, password: _enteredPassword);
 
+        // if (_enteredEmail == FlutterConfig.get('ADMIN')) _isAdmin = true;
+
         final storageRef = FirebaseStorage.instance
             .ref()
             .child('user_images')
@@ -86,7 +90,7 @@ class _AuthScreenState extends State<AuthScreen> {
 
         await storageRef.putFile(_selectedImage!);
         final imageUrl = await storageRef.getDownloadURL();
-        
+
         await FirebaseFirestore.instance
             .collection('users')
             .doc(userCredentials.user!.uid)
