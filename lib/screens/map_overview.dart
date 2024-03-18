@@ -21,7 +21,9 @@ class _MapOverviewScreenState extends State<MapOverviewScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Map of Swim Spots'),
+        backgroundColor: Theme.of(context).colorScheme.onPrimary,
+        title: Text('Map of Swim Spots',
+            style: TextStyle(color: Theme.of(context).colorScheme.primary)),
       ),
       body: GoogleMap(
         initialCameraPosition: const CameraPosition(
@@ -34,6 +36,7 @@ class _MapOverviewScreenState extends State<MapOverviewScreen> {
                 position:
                     LatLng(place.location.latitude, place.location.longitude),
                 infoWindow: InfoWindow(title: place.title),
+                
               )),
         ),
       ),

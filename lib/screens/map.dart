@@ -29,13 +29,16 @@ class _MapScreenState extends State<MapScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            title: Text(widget.isSelecting
-                ? 'Pick your location'
-                : 'SwimSpot Location'),
+            backgroundColor: Theme.of(context).colorScheme.onPrimary,
+            title: Text(
+              widget.isSelecting ? 'Pick your location' : 'SwimSpot Location',
+              style: TextStyle(color: Theme.of(context).colorScheme.primary),
+            ),
             actions: [
               if (widget.isSelecting)
                 IconButton(
-                  icon: const Icon(Icons.save),
+                  icon: Icon(Icons.save,
+                      color: Theme.of(context).colorScheme.primary),
                   onPressed: () {
                     Navigator.of(context).pop(_pickedLocation);
                   },

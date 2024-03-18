@@ -31,11 +31,18 @@ class _PlacesScreenState extends ConsumerState<PlacesScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Swim Spots'),
+        backgroundColor: Theme.of(context).colorScheme.onPrimary,
+        title: Text(
+          'Swim Spots',
+          style: TextStyle(color: Theme.of(context).colorScheme.primary),
+        ),
         actions: [
           //if(_isAdmin)
           IconButton(
-            icon: const Icon(Icons.map),
+            icon: Icon(
+              Icons.map,
+              color: Theme.of(context).colorScheme.primary,
+            ),
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
@@ -45,7 +52,10 @@ class _PlacesScreenState extends ConsumerState<PlacesScreen> {
             },
           ),
           IconButton(
-            icon: const Icon(Icons.add),
+            icon: Icon(
+              Icons.add,
+              color: Theme.of(context).colorScheme.primary,
+            ),
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(

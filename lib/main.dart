@@ -13,7 +13,7 @@ import 'package:sea_splash/screens/splash.dart';
 
 final colorScheme = ColorScheme.fromSeed(
   brightness: Brightness.dark,
-  seedColor: const Color.fromARGB(255, 18, 190, 199),
+  seedColor: Color.fromARGB(255, 29, 204, 214),
   background: const Color.fromARGB(255, 12, 106, 113),
 );
 

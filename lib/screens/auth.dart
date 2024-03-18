@@ -1,12 +1,12 @@
 import 'dart:io';
-import 'package:flutter_config/flutter_config.dart';
+//import 'package:flutter_config/flutter_config.dart';
 import 'package:intl/intl.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:sea_splash/main.dart';
+//import 'package:sea_splash/main.dart';
 import 'package:sea_splash/widgets/user_image_picker.dart';
 import 'package:sea_splash/models/user.dart';
 
@@ -34,7 +34,7 @@ class _AuthScreenState extends State<AuthScreen> {
   final _passwordController = TextEditingController();
   DateTime? _selectedDateOfBirth;
   Category _selectedCategory = Category.beginner;
-  
+
   // var _isAdmin = false;
   // var _confirmPassword = '';
   // var _obscureConfirmPassword = true;
