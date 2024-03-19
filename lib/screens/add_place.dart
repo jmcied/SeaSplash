@@ -39,6 +39,7 @@ class _AddPlaceScreenState extends ConsumerState<AddPlaceScreen> {
     }
 
     final user = FirebaseAuth.instance.currentUser!;
+
     final userData = await FirebaseFirestore.instance
         .collection('users')
         .doc(user.uid)
@@ -47,7 +48,7 @@ class _AddPlaceScreenState extends ConsumerState<AddPlaceScreen> {
     final storageRef = FirebaseStorage.instance
         .ref()
         .child('swimSpot_images')
-        .child('${userData.id}.jpg');
+        .child('$enteredTitle.jpg');
 
     await storageRef.putFile(_selectedImage!);
     final imageUrl = await storageRef.getDownloadURL();
@@ -55,6 +56,7 @@ class _AddPlaceScreenState extends ConsumerState<AddPlaceScreen> {
     FirebaseFirestore.instance.collection('swimspots').add({
       'title': enteredTitle,
       'image': imageUrl,
+      'userId': user.uid,
       'id': uuid.v4(),
       'lat': _selectedLocation!.latitude,
       'lng': _selectedLocation!.longitude,

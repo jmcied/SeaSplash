@@ -28,12 +28,12 @@ class PlaceDetailScreen extends StatelessWidget {
       ),
       body: Stack(
         children: [
-          Image.file(
-            place.image,
-            fit: BoxFit.cover,
-            height: double.infinity,
-            width: double.infinity,
-          ),
+          // Image.file(
+          //   place.image,
+          //   fit: BoxFit.cover,
+          //   height: double.infinity,
+          //   width: double.infinity,
+          // ),
           Positioned(
             bottom: 0,
             left: 0,

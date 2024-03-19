@@ -1,6 +1,10 @@
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sea_splash/models/place.dart';
 
 import 'package:sea_splash/providers/user_places.dart';
 import 'package:sea_splash/screens/add_place.dart';
@@ -77,18 +81,73 @@ class _PlacesScreenState extends ConsumerState<PlacesScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: FutureBuilder(
-          future: _placesFuture,
-          builder: (context, snapshot) =>
-              snapshot.connectionState == ConnectionState.waiting
-                  ? const Center(
-                      child: CircularProgressIndicator(),
-                    )
-                  : PlacesList(
-                      places: userPlaces,
-                    ),
+        child: StreamBuilder(
+          stream: FirebaseFirestore.instance
+              .collection('swimspots')
+              //.orderBy('title', descending: false)
+              .snapshots(),
+          builder: (ctx, swimSnapshots) {
+            if (swimSnapshots.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+
+            if (!swimSnapshots.hasData || swimSnapshots.data!.docs.isEmpty) {
+              return const Center(
+                child: Text('No swim spots found.'),
+              );
+            }
+
+            if (swimSnapshots.hasError) {
+              return const Center(
+                child: Text('Something went wrong...'),
+              );
+            }
+
+            final loadedPlaces = swimSnapshots.data!.docs.map((doc) {
+              final data = doc.data();
+              return Place(
+                id: data['id'],
+                title: data['title'],
+                image: File(data['image']),
+                location: PlaceLocation(
+                  latitude: data['lat'],
+                  longitude: data['lng'],
+                  address: data['address'],
+                ),
+              );
+            }).toList();
+
+            return PlacesList(
+                places: loadedPlaces); // Pass loadedPlaces to PlacesList
+          },
         ),
       ),
     );
   }
 }
+
+          // final loadedPlaces = swimSnapshots.data!.docs;
+
+          // return ListView.builder(
+          //   itemCount: loadedPlaces.length,
+          //   itemBuilder: (ctx, index) => Text(
+          //     loadedPlaces[index].data()['title'],
+          //   ),
+          // );
+
+
+          // FutureBuilder(
+          //   future: _placesFuture,
+          //   builder: (context, snapshot) =>
+          //       snapshot.connectionState == ConnectionState.waiting
+          //           ? const Center(
+          //               child: CircularProgressIndicator(),
+          //             )
+          //           : PlacesList(
+          //               places: userPlaces,
+          //             ),
+          // ),
+
+

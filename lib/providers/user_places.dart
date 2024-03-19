@@ -65,6 +65,16 @@ class UserPlacesNotifier extends StateNotifier<List<Place>> {
   }
 }
 
+  // Future<void> deletePlace(String id) async {
+  //   final db = await _getDatabase();
+  //   await db.delete(
+  //     'user_places',
+  //     where: 'id = ?',
+  //     whereArgs: [id],
+  //   );
+  //   state = state.where((place) => place.id != id).toList();
+  // }
+
 final userPlacesProvider =
     StateNotifierProvider<UserPlacesNotifier, List<Place>>(
   (ref) => UserPlacesNotifier(),
