@@ -9,6 +9,7 @@ import 'package:sea_splash/models/place.dart';
 import 'package:sea_splash/providers/user_places.dart';
 import 'package:sea_splash/screens/add_place.dart';
 import 'package:sea_splash/screens/map_overview.dart';
+import 'package:sea_splash/widgets/main_drawer.dart';
 import 'package:sea_splash/widgets/places_list.dart';
 
 class PlacesScreen extends ConsumerStatefulWidget {
@@ -79,6 +80,7 @@ class _PlacesScreenState extends ConsumerState<PlacesScreen> {
           )
         ],
       ),
+      drawer: const MainDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: StreamBuilder(
