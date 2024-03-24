@@ -5,6 +5,7 @@ import 'package:flutter_config/flutter_config.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:sea_splash/screens/events.dart';
 import 'firebase_options.dart';
 
 import 'package:sea_splash/screens/places.dart';
@@ -54,22 +55,22 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'SeaSplash',
       theme: theme,
-      home: StreamBuilder(
-        stream: FirebaseAuth.instance.authStateChanges(),
-        builder: ((context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const SplashScreen();
-          }
+      // home: StreamBuilder(
+      //   stream: FirebaseAuth.instance.authStateChanges(),
+      //   builder: ((context, snapshot) {
+      //     if (snapshot.connectionState == ConnectionState.waiting) {
+      //       return const SplashScreen();
+      //     }
 
-          if (snapshot.hasData) {
-            return const PlacesScreen();
-          }
+      //     if (snapshot.hasData) {
+      //       return const PlacesScreen();
+      //     }
 
-          return const AuthScreen();
-        }),
-        //home: const AuthScreen(),
-        //home: const PlacesScreen(),
-      ),
+      //     return const AuthScreen();
+      //   }),
+      //home: const AuthScreen(),
+      home: const EventsScreen(),
+      //),
     );
   }
 }

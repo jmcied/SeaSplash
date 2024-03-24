@@ -22,17 +22,17 @@ class PlacesScreen extends ConsumerStatefulWidget {
 }
 
 class _PlacesScreenState extends ConsumerState<PlacesScreen> {
-  late Future<void> _placesFuture;
+  //late Future<void> _placesFuture;
 
   @override
   void initState() {
     super.initState();
-    _placesFuture = ref.read(userPlacesProvider.notifier).loadPlaces();
+    //_placesFuture = ref.read(userPlacesProvider.notifier).loadPlaces();
   }
 
   @override
   Widget build(BuildContext context) {
-    final userPlaces = ref.watch(userPlacesProvider);
+    //final userPlaces = ref.watch(userPlacesProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -43,19 +43,19 @@ class _PlacesScreenState extends ConsumerState<PlacesScreen> {
         ),
         actions: [
           //if(_isAdmin)
-          IconButton(
-            icon: Icon(
-              Icons.map,
-              color: Theme.of(context).colorScheme.primary,
-            ),
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (ctx) => MapOverviewScreen(places: userPlaces),
-                ),
-              );
-            },
-          ),
+          // IconButton(
+          //   icon: Icon(
+          //     Icons.map,
+          //     color: Theme.of(context).colorScheme.primary,
+          //   ),
+          //   onPressed: () {
+          //     Navigator.of(context).push(
+          //       MaterialPageRoute(
+          //         builder: (ctx) => MapOverviewScreen(places: userPlaces),
+          //       ),
+          //     );
+          //   },
+          // ),
           IconButton(
             icon: Icon(
               Icons.add,

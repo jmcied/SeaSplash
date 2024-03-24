@@ -38,7 +38,7 @@ class MainDrawer extends StatelessWidget {
                   style: Theme.of(context).textTheme.titleLarge!.copyWith(
                         color: Theme.of(context).colorScheme.primary,
                       ),
-                )
+                ),
               ],
             ),
           ),
@@ -87,21 +87,21 @@ class MainDrawer extends StatelessWidget {
           //     Icons.exit_to_app,
           //     color: Theme.of(context).colorScheme.onBackground,
           //   ),
-          //   title: Text(
-          //     "Log out",
-          //     style: Theme.of(context).textTheme.titleSmall!.copyWith(
-          //           color: Theme.of(context).colorScheme.onBackground,
-          //           fontSize: 24,
-          //         ),
-          //   ),
-          //   onTap: () {
-          //     //FirebaseAuth.instance.signOut();
-          //     Navigator.of(context).push(
-          //       MaterialPageRoute(
-          //         builder: (ctx) => const AuthScreen(),
+          // title: Text(
+          //   "Log out",
+          //   style: Theme.of(context).textTheme.titleSmall!.copyWith(
+          //         color: Theme.of(context).colorScheme.onBackground,
+          //         fontSize: 24,
           //       ),
-          //);
-          //},
+          // ),
+          // onTap: () {
+          //   //FirebaseAuth.instance.signOut();
+          //   Navigator.of(context).push(
+          //     MaterialPageRoute(
+          //       builder: (ctx) => const AuthScreen(),
+          //     ),
+          //   );
+          // },
           //),
         ],
       ),

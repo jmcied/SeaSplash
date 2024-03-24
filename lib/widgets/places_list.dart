@@ -22,35 +22,36 @@ class PlacesList extends StatelessWidget {
     }
 
     return ListView.builder(
-        itemCount: places.length,
-        itemBuilder: (ctx, index) => Dismissible(
-              key: ValueKey(places[index]),
-              //onDismissed: ,
-              child: ListTile(
-                leading: CircleAvatar(
-                  radius: 26,
-                  backgroundImage: FileImage(places[index].image),
+      itemCount: places.length,
+      itemBuilder: (ctx, index) => Dismissible(
+        key: ValueKey(places[index]),
+        //onDismissed: ,
+        child: ListTile(
+          leading: CircleAvatar(
+            radius: 26,
+            backgroundImage: FileImage(places[index].image),
+          ),
+          title: Text(
+            places[index].title,
+            style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                  color: Theme.of(context).colorScheme.onBackground,
                 ),
-                title: Text(
-                  places[index].title,
-                  style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                        color: Theme.of(context).colorScheme.onBackground,
-                      ),
+          ),
+          subtitle: Text(
+            places[index].location.address,
+            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                  color: Theme.of(context).colorScheme.onBackground,
                 ),
-                subtitle: Text(
-                  places[index].location.address,
-                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                        color: Theme.of(context).colorScheme.onBackground,
-                      ),
-                ),
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (ctx) => PlaceDetailScreen(place: places[index]),
-                    ),
-                  );
-                },
+          ),
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (ctx) => PlaceDetailScreen(place: places[index]),
               ),
-            ));
+            );
+          },
+        ),
+      ),
+    );
   }
 }
