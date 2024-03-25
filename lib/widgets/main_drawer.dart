@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sea_splash/screens/auth.dart';
+import 'package:sea_splash/screens/chat.dart';
 import 'package:sea_splash/screens/map.dart';
 import 'package:sea_splash/screens/map_overview.dart';
 import 'package:sea_splash/screens/places.dart';
@@ -78,6 +79,26 @@ class MainDrawer extends StatelessWidget {
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (ctx) => const MapOverviewScreen(),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.chat,
+              color: Theme.of(context).colorScheme.onBackground,
+            ),
+            title: Text(
+              "Chat",
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                    color: Theme.of(context).colorScheme.onBackground,
+                    fontSize: 24,
+                  ),
+            ),
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (ctx) => const ChatScreen(),
                 ),
               );
             },

@@ -13,14 +13,16 @@ class Event {
     required this.title,
     required this.location,
     required this.date,
-    required this.category,
+    required this.time,
+    //required this.category,
   }) : id = uuid.v4();
 
   final String id;
   final String title;
   final String location;
   final DateTime date;
-  final Category category;
+  final TimeOfDay time;
+  //final Category category;
 
   String get formattedDate {
     return dateFormatter.format(date);

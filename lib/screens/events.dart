@@ -17,16 +17,18 @@ class EventsScreen extends StatefulWidget {
 class _EventsScreenState extends State<EventsScreen> {
   final List<Event> _registeredEvents = [
     Event(
-      title: 'Quick Dip',
-      location: 'Booley Bay',
-      date: DateTime.now(),
-      category: Category.beginner,
-    ),
+        title: 'Quick Dip',
+        location: 'Booley Bay',
+        date: DateTime.now(),
+        time: TimeOfDay.now()
+        //category: Category.beginner,
+        ),
     Event(
       title: 'Fun in the sun',
       location: 'Tramore',
       date: DateTime.now(),
-      category: Category.intermediate,
+      time: TimeOfDay.now(),
+      //category: Category.intermediate,
     ),
   ];
 
@@ -34,8 +36,14 @@ class _EventsScreenState extends State<EventsScreen> {
     showModalBottomSheet(
       backgroundColor: Colors.white,
       context: context,
-      builder: (ctx) => const NewEvent(),
+      builder: (ctx) => NewEvent(onAddEvent: _addEvent),
     );
+  }
+
+  void _addEvent(Event event) {
+    setState(() {
+      _registeredEvents.add(event);
+    });
   }
 
   @override

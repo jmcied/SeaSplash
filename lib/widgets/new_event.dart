@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+
 import 'package:sea_splash/models/event.dart';
+import 'package:sea_splash/models/place.dart';
+import 'package:sea_splash/widgets/places_list.dart';
 
 class NewEvent extends StatefulWidget {
-  const NewEvent({super.key});
+  const NewEvent({super.key, required this.onAddEvent});
+
+  final void Function(Event event) onAddEvent;
 
   @override
   State<StatefulWidget> createState() {
@@ -39,6 +44,38 @@ class _NewEventState extends State<NewEvent> {
     setState(() {
       _selectedTime = pickedTime;
     });
+  }
+
+  void _submitEvent() {
+    if (_titleController.text.trim().isEmpty ||
+        _locationController.text.trim().isEmpty ||
+        _selectedDate == null ||
+        _selectedTime == null) {
+      showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: const Text('Invalid Input'),
+          content: const Text('Please make sure all fields are entered.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(ctx);
+              },
+              child: const Text('Okay'),
+            ),
+          ],
+        ),
+      );
+      return;
+    }
+    widget.onAddEvent(
+      Event(
+        title: _titleController.text,
+        location: _locationController.text,
+        date: _selectedDate!,
+        time: _selectedTime!,
+      ),
+    );
   }
 
   @override
@@ -87,7 +124,7 @@ class _NewEventState extends State<NewEvent> {
                     const SizedBox(width: 16),
                     Text(
                       _selectedTime == null
-                          ? 'No Selected Time'
+                          ? 'No Selected Time' 
                           : hourMinuteFormat.format(
                               DateTime(0, 1, 1, _selectedTime!.hour,
                                   _selectedTime!.minute),
@@ -111,9 +148,9 @@ class _NewEventState extends State<NewEvent> {
                 child: const Text('Cancel'),
               ),
               ElevatedButton(
+                //_submitEvent,
                 onPressed: () {
-                  print(_titleController.text);
-                  print(_locationController.text);
+                  print(_selectedTime);
                 },
                 child: const Text(
                   'Save Event',
