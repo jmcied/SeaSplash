@@ -10,24 +10,25 @@ class ChatScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.onPrimary,
         title: Text(
           'SeaSplash Chat',
           style: TextStyle(color: Theme.of(context).colorScheme.primary),
         ),
-        actions: [
-          IconButton(
-            onPressed: () {
-              FirebaseAuth.instance.signOut();
-            },
-            icon: Icon(
-              Icons.exit_to_app,
-              color: Theme.of(context).colorScheme.primary,
-            ),
-          ),
-        ],
+        // actions: [
+        //   IconButton(
+        //     onPressed: () {
+        //       FirebaseAuth.instance.signOut();
+        //     },
+        //     icon: Icon(
+        //       Icons.exit_to_app,
+        //       color: Theme.of(context).colorScheme.primary,
+        //     ),
+        //   ),
+        // ],
       ),
-      body: Column(
-        children: const [
+      body: const Column(
+        children: [
           Expanded(
             child: ChatMessages(),
           ),
