@@ -29,7 +29,7 @@ class PlacesList extends StatelessWidget {
         child: ListTile(
           leading: CircleAvatar(
             radius: 26,
-            backgroundImage: FileImage(places[index].image),
+            backgroundImage: NetworkImage(places[index].image),
           ),
           title: Text(
             places[index].title,

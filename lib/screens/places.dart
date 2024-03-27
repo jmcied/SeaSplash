@@ -112,7 +112,7 @@ class _PlacesScreenState extends ConsumerState<PlacesScreen> {
               return Place(
                 id: data['id'],
                 title: data['title'],
-                image: File(data['image']),
+                image: data['image'],
                 location: PlaceLocation(
                   latitude: data['lat'],
                   longitude: data['lng'],

@@ -1,8 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+
 import 'package:sea_splash/widgets/chat/chat_messages.dart';
 import 'package:sea_splash/widgets/chat/new_message.dart';
-//import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
+import 'package:sea_splash/widgets/main_drawer.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
@@ -50,6 +51,7 @@ class _ChatScreenState extends State<ChatScreen> {
         //   ),
         // ],
       ),
+      drawer: const MainDrawer(),
       body: const Column(
         children: [
           Expanded(

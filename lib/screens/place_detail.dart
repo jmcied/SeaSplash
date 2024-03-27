@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_config/flutter_config.dart';
 
 import 'package:sea_splash/screens/map.dart';
@@ -28,18 +29,23 @@ class PlaceDetailScreen extends StatelessWidget {
       ),
       body: Stack(
         children: [
-          // Image.file(
-          //   place.image,
-          //   fit: BoxFit.cover,
-          //   height: double.infinity,
-          //   width: double.infinity,
-          // ),
+          Image(
+            image: NetworkImage(place.image),
+            fit: BoxFit.cover,
+            height: double.infinity,
+            width: double.infinity,
+          ),
           Positioned(
             bottom: 0,
             left: 0,
             right: 0,
             child: Column(
               children: [
+                //   CircleAvatar(
+                //     radius: 120,
+                //     backgroundImage: NetworkImage(place.image),
+                //   ),
+                //   const SizedBox(height: 20),
                 GestureDetector(
                   onTap: () {
                     Navigator.of(context).push(

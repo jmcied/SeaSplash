@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sea_splash/screens/auth.dart';
@@ -11,6 +12,29 @@ class MainDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // StreamBuilder(
+    //     stream: FirebaseFirestore.instance.collection('users').snapshots(),
+    //     builder: (ctx, usersSnapshots) {
+    //       if (!usersSnapshots.hasData || usersSnapshots.data!.docs.isEmpty) {
+    //         return Center(
+    //           child: Text(
+    //             'Welcome',
+    //             style: TextStyle(color: Theme.of(context).colorScheme.primary),
+    //           ),
+    //         );
+    //       }
+
+    //       final userData = usersSnapshots.data!.docs;
+    //       return Row(
+    //         children: [
+    //           Text(
+    //             'Welcome User',
+    //             style: TextStyle(color: Theme.of(context).colorScheme.primary),
+    //           ),
+    //         ],
+    //       );
+    //     });
+
     return Drawer(
       child: Column(
         children: [
@@ -108,22 +132,22 @@ class MainDrawer extends StatelessWidget {
           //     Icons.exit_to_app,
           //     color: Theme.of(context).colorScheme.onBackground,
           //   ),
-          // title: Text(
-          //   "Log out",
-          //   style: Theme.of(context).textTheme.titleSmall!.copyWith(
-          //         color: Theme.of(context).colorScheme.onBackground,
-          //         fontSize: 24,
+          //   title: Text(
+          //     "Log out",
+          //     style: Theme.of(context).textTheme.titleSmall!.copyWith(
+          //           color: Theme.of(context).colorScheme.onBackground,
+          //           fontSize: 24,
+          //         ),
+          //   ),
+          //   onTap: () {
+          //     FirebaseAuth.instance.signOut();
+          //     Navigator.of(context).push(
+          //       MaterialPageRoute(
+          //         builder: (ctx) => const AuthScreen(),
           //       ),
+          //     );
+          //   },
           // ),
-          // onTap: () {
-          //   //FirebaseAuth.instance.signOut();
-          //   Navigator.of(context).push(
-          //     MaterialPageRoute(
-          //       builder: (ctx) => const AuthScreen(),
-          //     ),
-          //   );
-          // },
-          //),
         ],
       ),
     );

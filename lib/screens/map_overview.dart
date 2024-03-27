@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sea_splash/models/place.dart';
+import 'package:sea_splash/widgets/main_drawer.dart';
 
 class MapOverviewScreen extends StatefulWidget {
   const MapOverviewScreen({
@@ -28,6 +29,7 @@ class _MapOverviewScreenState extends State<MapOverviewScreen> {
         title: Text('Map of Swim Spots',
             style: TextStyle(color: Theme.of(context).colorScheme.primary)),
       ),
+      drawer: const MainDrawer(),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection('swimspots').snapshots(),
         builder: (ctx, swimSnapshots) {
@@ -51,7 +53,7 @@ class _MapOverviewScreenState extends State<MapOverviewScreen> {
             return Place(
               id: data['id'],
               title: data['title'],
-              image: File(data['image']),
+              image: data['image'],
               location: PlaceLocation(
                 latitude: data['lat'],
                 longitude: data['lng'],
