@@ -110,7 +110,7 @@ class _LocationInputState extends State<LocationInput> {
       'No location chosen',
       textAlign: TextAlign.center,
       style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-            color: Theme.of(context).colorScheme.onBackground,
+            color: Theme.of(context).colorScheme.primary,
           ),
     );
 

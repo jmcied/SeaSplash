@@ -1,11 +1,12 @@
 import 'dart:io';
+//import 'package:flutter_config/flutter_config.dart';
 import 'package:intl/intl.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:sea_splash/main.dart';
+//import 'package:sea_splash/main.dart';
 import 'package:sea_splash/widgets/user_image_picker.dart';
 import 'package:sea_splash/models/user.dart';
 
@@ -34,6 +35,7 @@ class _AuthScreenState extends State<AuthScreen> {
   DateTime? _selectedDateOfBirth;
   Category _selectedCategory = Category.beginner;
 
+  // var _isAdmin = false;
   // var _confirmPassword = '';
   // var _obscureConfirmPassword = true;
 
@@ -79,6 +81,8 @@ class _AuthScreenState extends State<AuthScreen> {
         final userCredentials = await _firebase.createUserWithEmailAndPassword(
             email: _enteredEmail, password: _enteredPassword);
 
+        // if (_enteredEmail == FlutterConfig.get('ADMIN')) _isAdmin = true;
+
         final storageRef = FirebaseStorage.instance
             .ref()
             .child('user_images')
@@ -86,7 +90,6 @@ class _AuthScreenState extends State<AuthScreen> {
 
         await storageRef.putFile(_selectedImage!);
         final imageUrl = await storageRef.getDownloadURL();
-        print('_selectedCategory: $_selectedCategory');
 
         await FirebaseFirestore.instance
             .collection('users')

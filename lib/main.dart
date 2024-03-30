@@ -5,6 +5,8 @@ import 'package:flutter_config/flutter_config.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:sea_splash/screens/chat.dart';
+import 'package:sea_splash/screens/events.dart';
 import 'firebase_options.dart';
 
 import 'package:sea_splash/screens/places.dart';
@@ -13,7 +15,7 @@ import 'package:sea_splash/screens/splash.dart';
 
 final colorScheme = ColorScheme.fromSeed(
   brightness: Brightness.dark,
-  seedColor: const Color.fromARGB(255, 18, 190, 199),
+  seedColor: const Color.fromARGB(255, 29, 204, 214),
   background: const Color.fromARGB(255, 12, 106, 113),
 );
 
@@ -68,7 +70,7 @@ class MyApp extends StatelessWidget {
           return const AuthScreen();
         }),
         //home: const AuthScreen(),
-        //home: const PlacesScreen(),
+        //home: const ChatScreen(),
       ),
     );
   }

@@ -1,11 +1,19 @@
 import 'dart:io';
+import 'package:uuid/uuid.dart';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+//import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:sea_splash/models/place.dart';
-import 'package:sea_splash/providers/user_places.dart';
+//import 'package:sea_splash/providers/user_places.dart';
 import 'package:sea_splash/widgets/image_input.dart';
 import 'package:sea_splash/widgets/location_input.dart';
+
+const uuid = Uuid();
 
 class AddPlaceScreen extends ConsumerStatefulWidget {
   const AddPlaceScreen({super.key});
@@ -21,7 +29,7 @@ class _AddPlaceScreenState extends ConsumerState<AddPlaceScreen> {
   File? _selectedImage;
   PlaceLocation? _selectedLocation;
 
-  void _savePlace() {
+  void _savePlace() async {
     final enteredTitle = _titleController.text;
 
     if (enteredTitle.isEmpty ||
@@ -30,9 +38,34 @@ class _AddPlaceScreenState extends ConsumerState<AddPlaceScreen> {
       return;
     }
 
-    ref
-        .read(userPlacesProvider.notifier)
-        .addPlace(enteredTitle, _selectedImage!, _selectedLocation!);
+    final user = FirebaseAuth.instance.currentUser!;
+
+    final userData = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(user.uid)
+        .get();
+
+    final storageRef = FirebaseStorage.instance
+        .ref()
+        .child('swimSpot_images')
+        .child('$enteredTitle.jpg');
+
+    await storageRef.putFile(_selectedImage!);
+    final imageUrl = await storageRef.getDownloadURL();
+
+    FirebaseFirestore.instance.collection('swimspots').add({
+      'title': enteredTitle,
+      'image': imageUrl,
+      'userId': user.uid,
+      'id': uuid.v4(),
+      'lat': _selectedLocation!.latitude,
+      'lng': _selectedLocation!.longitude,
+      'address': _selectedLocation!.address,
+    });
+
+    // ref
+    //     .read(userPlacesProvider.notifier)
+    //     .addPlace(enteredTitle, _selectedImage!, _selectedLocation!);
 
     Navigator.of(context).pop();
   }
@@ -47,7 +80,9 @@ class _AddPlaceScreenState extends ConsumerState<AddPlaceScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add new SwimSpot'),
+        backgroundColor: Theme.of(context).colorScheme.onPrimary,
+        title: Text('Add new SwimSpot',
+            style: TextStyle(color: Theme.of(context).colorScheme.primary)),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(12),
